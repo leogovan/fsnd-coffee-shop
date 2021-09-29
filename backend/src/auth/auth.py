@@ -1,5 +1,5 @@
 import json
-from flask import request, _request_ctx_stack
+from flask import request, _request_ctx_stack, abort
 from functools import wraps
 from jose import jwt
 from urllib.request import urlopen
@@ -23,12 +23,14 @@ class AuthError(Exception):
 ## Auth Header
 
 '''
+---- DONE ----
 @TODO implement get_token_auth_header() method
     it should attempt to get the header from the request
         it should raise an AuthError if no header is present
     it should attempt to split bearer and the token
         it should raise an AuthError if the header is malformed
     return the token part of the header
+---- DONE ----
 '''
 def get_token_auth_header():
     """
@@ -79,7 +81,24 @@ def get_token_auth_header():
 '''
 
 def check_permissions(permission, payload):
-    raise Exception('Not Implemented')
+    # print("I am payload: ", payload)
+    # print("I am permission: ", permission)
+    # print("I am payload['permissions']", payload['permissions'])
+    
+    if 'permissions' not in payload:
+        raise AuthError({
+            'code': 'invalid_claims',
+            'description': 'Permissions not included in JWT.'
+        }, 400)
+    
+    if permission not in payload['permissions']:
+        abort(403)
+        # raise AuthError({
+        #     'code': 'unauthorized',
+        #     'description': 'Permission not found.'
+        #     }, 403)
+    return True
+
 
 '''
 @TODO implement verify_decode_jwt(token) method
