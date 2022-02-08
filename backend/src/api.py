@@ -96,29 +96,27 @@ def new_drink(self):
     # Because new_recipe is a dictionary, it needs to be converted into json
     new_drink = Drink(title=new_title, recipe=json.dumps(new_recipe))
     new_drink.insert()
-    # use db.session to be able to get the id of the new_drink before commit
+
     # db.session.add(new_drink)
     # db.session.flush()
     # new_drink_id = new_drink.id
-    # commit new_drink to db
     # db.session.commit()
 
     # new_drinkle = Drink.query.filter(Drink.id == new_drink_id).one_or_none()
-    # print("new_drinkle = ", new_drinkle)
-    # print("new_drinkle type = ", type(new_drinkle))
 
-    all_drinks = Drink.query.all()
-    all_drinks = all_drinks[-1]
-    print("all_drinks = ", all_drinks)
-    print("all_drinks type = ", type(all_drinks))
+    # get all drinks and order by ID
+    all_drinks = Drink.query.order_by(Drink.id).all()
+    
+    # get the last drink in the list - assumes it's the last one
+    all_drinks = [all_drinks[-1]]
 
-    drinks = []
-    for drink in all_drinks:
-       drinks.append(drink.long())
+    drink = []
+    for drinky in all_drinks:
+       drink.append(drinky.long())
 
     return jsonify({
         'success': True,
-        'drinks': drinks
+        'drinks': drink
     })
 
 
