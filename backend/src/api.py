@@ -133,7 +133,7 @@ def new_drink(self):
 '''
 @app.route('/drinks/<int:id>', methods=['PATCH'])
 @requires_auth('patch:drinks')   
-def edit_drink(id):
+def edit_drink(self, id):
     drink = Drink.query.get(id)
     print('drink = ', drink)
     body = request.get_json()
