@@ -42,6 +42,10 @@ def retrieve_drinks():
     # Alternative to for loop, list comprehension
     #drinks = [drink.short() for drink in all_drinks]
     
+    if len(drinks) == 0:
+        abort(404)
+
+
     return jsonify({
         "success": True,
         "drinks": drinks
@@ -57,6 +61,21 @@ def retrieve_drinks():
         or appropriate status code indicating reason for failure
 '''
 
+@app.route('/drinks-detail', methods=['GET'])
+@requires_auth('get:drinks-detail')
+def get_drinks_detail(self):
+    all_drinks = Drink.query.all()
+    drinks = []
+    for drink in all_drinks:
+        drinks.append(drink.long())
+    
+    if len(drinks) == 0:
+        abort(404)
+
+    return jsonify({
+        'success': True,
+        'drinks': drinks
+    })
 
 '''
 @TODO implement endpoint
