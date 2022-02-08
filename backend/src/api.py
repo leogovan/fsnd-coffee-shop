@@ -131,7 +131,19 @@ def new_drink(self):
     returns status code 200 and json {"success": True, "drinks": drink} where drink an array containing only the updated drink
         or appropriate status code indicating reason for failure
 '''
+@app.route('/drinks/<int:id>', methods=['PATCH'])
+@requires_auth('patch:drinks')   
+def edit_drink(id):
+    drink = Drink.query.get(id)
+    print('drink = ', drink)
+    body = request.get_json()
 
+    drink = []
+
+    return jsonify({
+        "success": True,
+        "drinks": drink
+    })
 
 '''
 @TODO implement endpoint
