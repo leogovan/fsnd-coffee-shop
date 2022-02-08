@@ -4,7 +4,7 @@ from sqlalchemy import exc
 import json
 from flask_cors import CORS
 
-from .database.models import db_drop_and_create_all, setup_db, Drink
+from .database.models import db_drop_and_create_all, setup_db, Drink, db
 from .auth.auth import AuthError, requires_auth
 
 app = Flask(__name__)
@@ -35,12 +35,11 @@ def retrieve_drinks():
     # returns a list of DB objects (not dictionaries)
     print("all_drinks = ", all_drinks[0])
     print("all_drinks type = ", type(all_drinks[0]))
+    
     drinks = []
     for drink in all_drinks:
-        drinks.append(drink.short())
+       drinks.append(drink.short())
     
-    # Alternative to for loop, list comprehension
-    #drinks = [drink.short() for drink in all_drinks]
     
     if len(drinks) == 0:
         abort(404)
@@ -86,6 +85,41 @@ def get_drinks_detail(self):
     returns status code 200 and json {"success": True, "drinks": drink} where drink an array containing only the newly created drink
         or appropriate status code indicating reason for failure
 '''
+@app.route('/drinks', methods=['POST'])
+@requires_auth('post:drinks')
+def new_drink(self):
+    # get and prepare the form input
+    body = request.get_json()
+    new_title = body.get('title', None)
+    new_recipe = body.get('recipe', None)
+
+    # Because new_recipe is a dictionary, it needs to be converted into json
+    new_drink = Drink(title=new_title, recipe=json.dumps(new_recipe))
+    new_drink.insert()
+    # use db.session to be able to get the id of the new_drink before commit
+    # db.session.add(new_drink)
+    # db.session.flush()
+    # new_drink_id = new_drink.id
+    # commit new_drink to db
+    # db.session.commit()
+
+    # new_drinkle = Drink.query.filter(Drink.id == new_drink_id).one_or_none()
+    # print("new_drinkle = ", new_drinkle)
+    # print("new_drinkle type = ", type(new_drinkle))
+
+    all_drinks = Drink.query.all()
+    all_drinks = all_drinks[-1]
+    print("all_drinks = ", all_drinks)
+    print("all_drinks type = ", type(all_drinks))
+
+    drinks = []
+    for drink in all_drinks:
+       drinks.append(drink.long())
+
+    return jsonify({
+        'success': True,
+        'drinks': drinks
+    })
 
 
 '''
