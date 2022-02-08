@@ -29,6 +29,24 @@ CORS(app)
         or appropriate status code indicating reason for failure
 '''
 
+@app.route('/drinks', methods=['GET'])
+def retrieve_drinks():
+    all_drinks = Drink.query.all()
+    # returns a list of DB objects (not dictionaries)
+    print("all_drinks = ", all_drinks[0])
+    print("all_drinks type = ", type(all_drinks[0]))
+    drinks = []
+    for drink in all_drinks:
+        drinks.append(drink.short())
+    
+    # Alternative to for loop, list comprehension
+    #drinks = [drink.short() for drink in all_drinks]
+    
+    return jsonify({
+        "success": True,
+        "drinks": drinks
+    })
+
 
 '''
 @TODO implement endpoint
