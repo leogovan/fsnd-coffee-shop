@@ -118,6 +118,9 @@ def check_permissions(permission, payload):
 ---- DONE ----
 '''
 def verify_decode_jwt(token):
+    # jwks is a public set of json web keys and acts as the public key 
+    # in this case. The private key is held and used to generate and sign
+    # the jwt by Auth0
     jsonurl = urlopen(f'https://{AUTH0_DOMAIN}/.well-known/jwks.json')
     jwks = json.loads(jsonurl.read())
     unverified_header = jwt.get_unverified_header(token)

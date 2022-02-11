@@ -1,8 +1,10 @@
 import os
+from queue import Empty
 from flask import Flask, request, jsonify, abort
 from sqlalchemy import exc
 import json
 from flask_cors import CORS
+import sys
 
 from .database.models import db_drop_and_create_all, setup_db, Drink, db
 from .auth.auth import AuthError, requires_auth
@@ -43,7 +45,6 @@ def retrieve_drinks():
     
     if len(drinks) == 0:
         abort(404)
-
 
     return jsonify({
         "success": True,
@@ -88,36 +89,60 @@ def get_drinks_detail(self):
 @app.route('/drinks', methods=['POST'])
 @requires_auth('post:drinks')
 def new_drink(self):
-    # get and prepare the form input
-    body = request.get_json()
-    new_title = body.get('title', None)
-    new_recipe = body.get('recipe', None)
+    try:
+        # get and prepare the form input
+        body = request.get_json()
+        # Check for value in body
+        if body is None:
+            abort(404)
+        else:
+            new_title = body.get('title', None)
+            new_recipe = body.get('recipe', None)
+    except:
+        abort(422)
 
     # Because new_recipe is a dictionary, it needs to be converted into json
     new_drink = Drink(title=new_title, recipe=json.dumps(new_recipe))
-    new_drink.insert()
 
-    # db.session.add(new_drink)
-    # db.session.flush()
-    # new_drink_id = new_drink.id
-    # db.session.commit()
+    try:
+        # Get the ID of the new drink record before it is commited and store
+        db.session.add(new_drink)
+        db.session.flush()
+        new_drink_id = new_drink.id
+    
+        # Commit to DB
+        db.session.commit()
 
-    # new_drinkle = Drink.query.filter(Drink.id == new_drink_id).one_or_none()
+    except:
+        db.session.rollback()
+        print(sys.exc_info())
+        abort(500)
 
-    # get all drinks and order by ID
+    try:
+        # Get the new drink object from the db by ID
+        # Apply class method long() to format it
+        drink = Drink.query.filter(Drink.id == new_drink_id).one_or_none().long()
+
+        return jsonify({
+            'success': True,
+            'drinks': drink
+        })
+
+    except:
+        abort(500)
+    """
+    # Alternative approach:
+
+    get all drinks and order by ID
     all_drinks = Drink.query.order_by(Drink.id).all()
     
-    # get the last drink in the list - assumes it's the last one
+    get the last drink in the list - assumes it's the last one to  be created
     all_drinks = [all_drinks[-1]]
 
     drink = []
     for drinky in all_drinks:
-       drink.append(drinky.long())
-
-    return jsonify({
-        'success': True,
-        'drinks': drink
-    })
+        drink.append(drinky.long())
+    """
 
 
 '''
@@ -134,16 +159,33 @@ def new_drink(self):
 @app.route('/drinks/<int:id>', methods=['PATCH'])
 @requires_auth('patch:drinks')   
 def edit_drink(self, id):
-    drink = Drink.query.get(id)
-    print('drink = ', drink)
-    body = request.get_json()
+    try: 
+        body = request.get_json()
+        if body is None:
+            abort(404)
+        else:
+            title_update = body.get('title')
+            recipe_update = body.get('recipe')
+    except:
+        abort(422)
 
-    drink = []
+    try:
+        drink = Drink.query.get(id)
+        if drink is None:
+            abort(404)
+        # print('drink = ', drink)
+        else:
+            drink.title = title_update
+            drink.recipe = recipe_update
+            drink.update()
 
-    return jsonify({
-        "success": True,
-        "drinks": drink
-    })
+            return jsonify({
+                "success": True,
+                "drinks": drink.long()
+            })
+    
+    except:
+        abort(500)
 
 '''
 @TODO implement endpoint
