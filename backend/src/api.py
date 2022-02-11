@@ -157,10 +157,26 @@ def new_drink(self):
         or appropriate status code indicating reason for failure
 '''
 @app.route('/drinks/<int:id>', methods=['PATCH'])
-@requires_auth('patch:drinks')   
+@requires_auth('patch:drinks')
+# def edit_drink(self, id):
+#     body = request.get_json()
+#     title_update = body.get('title', None)
+#     recipe_update = body.get('recipe', None)
+
+#     drink = Drink.query.get(id)
+#     drink.title = title_update
+#     drink.recipe = json.dumps(recipe_update)
+#     drink.update()
+
+#     return jsonify({
+#         "success": True,
+#         "drinks": drink.long()
+#     }), 200
+
 def edit_drink(self, id):
     try: 
         body = request.get_json()
+        print("I am body: ", body)
         if body is None:
             abort(404)
         else:
@@ -176,7 +192,7 @@ def edit_drink(self, id):
         # print('drink = ', drink)
         else:
             drink.title = title_update
-            drink.recipe = recipe_update
+            drink.recipe = json.dumps(recipe_update)
             drink.update()
 
             return jsonify({
