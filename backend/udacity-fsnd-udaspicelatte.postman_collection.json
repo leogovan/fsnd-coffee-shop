@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "e8ad44ee-7536-4901-913c-46e718d56d9f",
+		"_postman_id": "8e59b1d0-7a36-40b4-8b06-fda4f98ef869",
 		"name": "udacity-fsnd-udaspicelatte",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -14,7 +14,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "05cea6f9-9af0-4e60-9aad-4c8faf37ef4c",
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {",
 									"    pm.response.to.have.status(200);",
@@ -50,7 +49,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "65a195fa-a734-44b7-a7e0-c629b32d1fbb",
 								"exec": [
 									"pm.test(\"Status code is 401 since no credentials are present\", function () {",
 									"    pm.response.to.have.status(401);",
@@ -81,7 +79,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "5050a5b9-2e15-474e-9981-0e61ec8d2ff1",
 								"exec": [
 									"pm.test(\"Status code is 401 since no credentials are present\", function () {",
 									"    pm.response.to.have.status(401);",
@@ -112,7 +109,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "ec1488aa-b4d7-468a-89f5-03484009e69c",
 								"exec": [
 									"pm.test(\"Status code is 401 since no credentials are present\", function () {",
 									"    pm.response.to.have.status(401);",
@@ -144,7 +140,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "0aea66ad-0a6e-4533-b192-a8b0af746c78",
 								"exec": [
 									"pm.test(\"Status code is 401 since no credentials are present\", function () {",
 									"    pm.response.to.have.status(401);",
@@ -181,7 +176,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "05cea6f9-9af0-4e60-9aad-4c8faf37ef4c",
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {",
 									"    pm.response.to.have.status(200);",
@@ -217,7 +211,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "65a195fa-a734-44b7-a7e0-c629b32d1fbb",
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {",
 									"    pm.response.to.have.status(200);",
@@ -228,6 +221,16 @@
 						}
 					],
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{baristaToken}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
@@ -248,7 +251,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "5050a5b9-2e15-474e-9981-0e61ec8d2ff1",
 								"exec": [
 									"pm.test(\"Status code is 403 since credentials are valid, but permission is not present\", function () {",
 									"    pm.response.to.have.status(403);",
@@ -289,7 +291,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "ec1488aa-b4d7-468a-89f5-03484009e69c",
 								"exec": [
 									"pm.test(\"Status code is 403 since credentials are valid, but permission is not present\", function () {",
 									"    pm.response.to.have.status(403);",
@@ -321,7 +322,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "0aea66ad-0a6e-4533-b192-a8b0af746c78",
 								"exec": [
 									"pm.test(\"Status code is 403 since credentials are valid, but permission is not present\", function () {",
 									"    pm.response.to.have.status(403);",
@@ -362,7 +362,6 @@
 				{
 					"listen": "prerequest",
 					"script": {
-						"id": "f985b22c-34c4-4cfe-8308-f6fb98d799ac",
 						"type": "text/javascript",
 						"exec": [
 							""
@@ -372,7 +371,6 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "596425ac-59b4-4488-9f07-4c748e1ad082",
 						"type": "text/javascript",
 						"exec": [
 							""
@@ -390,7 +388,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "05cea6f9-9af0-4e60-9aad-4c8faf37ef4c",
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {",
 									"    pm.response.to.have.status(200);",
@@ -426,7 +423,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "65a195fa-a734-44b7-a7e0-c629b32d1fbb",
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {",
 									"    pm.response.to.have.status(200);",
@@ -442,6 +438,16 @@
 						}
 					],
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{managerToken}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
@@ -462,7 +468,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "5050a5b9-2e15-474e-9981-0e61ec8d2ff1",
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {",
 									"    pm.response.to.have.status(200);",
@@ -473,6 +478,16 @@
 						}
 					],
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{managerToken}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [
 							{
@@ -484,7 +499,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"title\": \"Water3\",\n    \"recipe\": {\n        \"name\": \"Water\",\n        \"color\": \"blue\",\n        \"parts\": 1\n    }\n}"
+							"raw": "{\n    \"title\": \"Water3\",\n    \"recipe\": [\n        {\n            \"name\": \"Water\",\n            \"color\": \"blue\",\n            \"parts\": 1\n        }\n    ]\n}"
 						},
 						"url": {
 							"raw": "{{host}}/drinks",
@@ -504,7 +519,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "ec1488aa-b4d7-468a-89f5-03484009e69c",
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {",
 									"    pm.response.to.have.status(200);",
@@ -520,6 +534,16 @@
 						}
 					],
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{managerToken}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "PATCH",
 						"header": [
 							{
@@ -531,7 +555,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"title\": \"Water5\"\n}"
+							"raw": "{\n    \"title\": \"Water55\",\n    \"recipe\": [\n        {\n            \"name\": \"Water\",\n            \"color\": \"blue\",\n            \"parts\": 1\n        }\n    ]\n}"
 						},
 						"url": {
 							"raw": "{{host}}/drinks/1",
@@ -552,7 +576,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "0aea66ad-0a6e-4533-b192-a8b0af746c78",
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {",
 									"    pm.response.to.have.status(200);",
@@ -563,6 +586,16 @@
 						}
 					],
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{managerToken}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "DELETE",
 						"header": [],
 						"url": {
@@ -593,7 +626,6 @@
 				{
 					"listen": "prerequest",
 					"script": {
-						"id": "113ee6fe-418d-4bf4-a641-444b5816e46b",
 						"type": "text/javascript",
 						"exec": [
 							""
@@ -603,7 +635,6 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "5704da6d-dc7e-42b9-8214-aa7ecf075bca",
 						"type": "text/javascript",
 						"exec": [
 							""
@@ -617,7 +648,6 @@
 		{
 			"listen": "prerequest",
 			"script": {
-				"id": "fc871e59-eaa4-46e8-975b-87b750ad1804",
 				"type": "text/javascript",
 				"exec": [
 					""
@@ -627,7 +657,6 @@
 		{
 			"listen": "test",
 			"script": {
-				"id": "e5766f23-c7f1-472b-ae34-825a91147815",
 				"type": "text/javascript",
 				"exec": [
 					""
@@ -637,9 +666,18 @@
 	],
 	"variable": [
 		{
-			"id": "7da0fa13-ecd9-4d7d-8e38-fde2c81cfdaf",
 			"key": "host",
 			"value": "localhost:5000",
+			"type": "string"
+		},
+		{
+			"key": "baristaToken",
+			"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IlJjNy1ISU5NSzVpQ2s0NG5EdEVNTSJ9.eyJpc3MiOiJodHRwczovL2ZzbmQtbGVvZ292YW4uZXUuYXV0aDAuY29tLyIsInN1YiI6ImF1dGgwfDYyMDEzODFhOTkyMGUwMDA2YTM0YzMzMSIsImF1ZCI6ImNvZmZlZSIsImlhdCI6MTY0NDYwMzU5MywiZXhwIjoxNjQ0Njg5OTkzLCJhenAiOiJsUWNQZVdPNDBta3VTUlZBdGMwT0RjNDZySGFENThZZiIsInNjb3BlIjoiIiwicGVybWlzc2lvbnMiOlsiZ2V0OmRyaW5rcy1kZXRhaWwiXX0.X3wWfaX5Fsw4O_SSU9-vVetfgUzR_fMLkhUEpl5Bf5PrbBRUIPODdI3mbP6jtLLg7a4BN-E7nDcJ13BtYTyS1EZqZ1ZjXruTKexD7hLOuvDLLjHtBpk5KTsfQo9sRdLR2wmHjGKTTtUe86RMFmT1hmxrtUkCt59Wb95XYuxabsJhSDbLIbpwRdRp-GDbnGSgSFSYLjR4NWD_d_-zgepttjT5XkrZMe4rKyGPBTQN0gY36hi4LFHVZuQGD_l2NgF8OvEBuNkU_tdSigrI7pfpfA1DUQatcTF0B1Qnf6qTJ-8cyAyG7ggtSkKkXFRs8o5bJnKqns1nZbNEjRKAgJPvsA",
+			"type": "string"
+		},
+		{
+			"key": "managerToken",
+			"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IlJjNy1ISU5NSzVpQ2s0NG5EdEVNTSJ9.eyJpc3MiOiJodHRwczovL2ZzbmQtbGVvZ292YW4uZXUuYXV0aDAuY29tLyIsInN1YiI6ImF1dGgwfDYyMDEzODdhYmMwNTk3MDA2YTU0MTM1OCIsImF1ZCI6ImNvZmZlZSIsImlhdCI6MTY0NDYwMzY3NSwiZXhwIjoxNjQ0NjkwMDc1LCJhenAiOiJsUWNQZVdPNDBta3VTUlZBdGMwT0RjNDZySGFENThZZiIsInNjb3BlIjoiIiwicGVybWlzc2lvbnMiOlsiZGVsZXRlOmRyaW5rcyIsImdldDpkcmlua3MiLCJnZXQ6ZHJpbmtzLWRldGFpbCIsInBhdGNoOmRyaW5rcyIsInBvc3Q6ZHJpbmtzIl19.DxqXoLT5iWxsbZ1Mmehqx6ZoKwVXIejQAehApQLfVDbcZ-NxnE-fB-WnE7oUZ7V_21ZOeCwXmL-XoXDOQw49JituRIxnyzxVzLZzg1K3EJ9GDZly-yS5u9FWocnkLJcGjr7pHBmstRgr7nWMUn24Koe0o7DS27X79wXt8JPk5DTuAAz5-V8Kc37qhHhWnY_g5VCoHf9V6T-XMHoUpqkWcESPdY_Svzu5KTRWCHI2gmBr-evxiCuIiyjPkhgQVz0oF-Wb9nzcF3meE_xFIO9_9AbrY2hYR39HFF7ytGVr9_Jr0O8WWGkawY_C9msgu3SV4mCBU-8dl_UHvtyO3GCxLg",
 			"type": "string"
 		}
 	]
