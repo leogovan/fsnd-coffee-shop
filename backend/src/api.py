@@ -158,20 +158,6 @@ def new_drink(self):
 '''
 @app.route('/drinks/<int:id>', methods=['PATCH'])
 @requires_auth('patch:drinks')
-# def edit_drink(self, id):
-#     body = request.get_json()
-#     title_update = body.get('title', None)
-#     recipe_update = body.get('recipe', None)
-
-#     drink = Drink.query.get(id)
-#     drink.title = title_update
-#     drink.recipe = json.dumps(recipe_update)
-#     drink.update()
-
-#     return jsonify({
-#         "success": True,
-#         "drinks": drink.long()
-#     }), 200
 
 def edit_drink(self, id):
     try: 
