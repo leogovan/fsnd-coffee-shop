@@ -75,7 +75,7 @@ def get_drinks_detail(self):
     return jsonify({
         'success': True,
         'drinks': drinks
-    })
+    }), 200
 
 '''
 @TODO implement endpoint
@@ -126,7 +126,7 @@ def new_drink(self):
         return jsonify({
             'success': True,
             'drinks': drink
-        })
+        }), 200
 
     except:
         abort(500)
@@ -182,7 +182,7 @@ def edit_drink(self, id):
             return jsonify({
                 "success": True,
                 "drinks": drink.long()
-            })
+            }), 200
     
     except:
         abort(500)
@@ -197,6 +197,23 @@ def edit_drink(self, id):
     returns status code 200 and json {"success": True, "delete": id} where id is the id of the deleted record
         or appropriate status code indicating reason for failure
 '''
+@app.route('/drinks/<int:id>', methods=['DELETE'])
+@requires_auth('delete:drinks')
+def delete_drink(self, id):
+    try:
+        drink = Drink.query.get(id)
+
+        if drink is None:
+            abort(422)
+        else:
+            drink.delete()
+            return jsonify({
+                'success': True,
+                'delete': id
+            }), 200
+    
+    except:
+        abort(500)
 
 
 # Error Handling
